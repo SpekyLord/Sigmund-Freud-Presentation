@@ -322,6 +322,121 @@
     color: rgba(255,255,255,0.25);
     z-index: 100;
   }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    /* Title slide */
+    .slide-1 h1 {
+      font-size: 2.2rem;
+    }
+    .slide-1 .label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .slide-1 .subtitle {
+      font-size: 0.9rem;
+      margin-top: 0.6rem;
+    }
+    .slide-1 .presenter {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      margin-top: 0.8rem;
+    }
+    .slide-1 .meta {
+      font-size: 0.7rem;
+      margin-top: 1.2rem;
+    }
+    .slide-1 .decorline {
+      margin: 1rem auto;
+    }
+
+    /* Content slides */
+    .dark-slide {
+      padding: 1.2rem 1rem;
+      justify-content: flex-start;
+      padding-top: 2rem;
+    }
+    .dark-slide .slide-number {
+      font-size: 0.55rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.3rem;
+    }
+    .dark-slide h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Grid layouts — stack to single column */
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+    .mini-grid {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    /* Cards */
+    .card {
+      padding: 0.7rem 0.8rem;
+      border-radius: 8px;
+    }
+    .card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    .card h3 .icon {
+      width: 14px;
+      height: 14px;
+    }
+    .card p, .card li {
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    .card ul li {
+      padding: 0.1rem 0;
+      padding-left: 0.8rem;
+    }
+
+    /* Takeaway box */
+    .takeaway-box {
+      padding: 0.6rem 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .takeaway-box p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    /* References slide */
+    .ref-slide .ref-num {
+      margin-right: 2px;
+    }
+
+    /* Navigation */
+    .nav {
+      bottom: 1rem;
+      right: 50%;
+      transform: translateX(50%);
+      gap: 0.6rem;
+    }
+    .nav button {
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
+    }
+
+    /* Counter & tip */
+    .slide-counter {
+      bottom: 1rem;
+      left: 1rem;
+      font-size: 0.65rem;
+    }
+    .fs-tip {
+      display: none;
+    }
+  }
 </style>
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
