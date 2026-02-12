@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Freudian Revolution — Austria, Francis Gabriel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #1a1a2e;
+    --secondary: #16213e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --light: #f0e6d3;
+    --cream: #faf3e8;
+    --text-dark: #1a1a2e;
+    --text-light: #f0e6d3;
+    --gold: #c9a96e;
+  }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--primary);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .slide-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+  }
+
+  .slide.exit {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+
+  /* ===== SLIDE 1: TITLE ===== */
+  .slide-1 {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #0a0a1a 100%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    position: relative;
+  }
+
+  .slide-1::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(233,69,96,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(15,52,96,0.15) 0%, transparent 50%);
+    animation: drift 20s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-2%, 1%) rotate(1deg); }
+  }
+
+  .slide-1 .content { position: relative; z-index: 1; }
+
+  .slide-1 .label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .slide-1 h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .slide-1 h1 span { color: var(--accent); }
+
+  .slide-1 .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-top: 1rem;
+    opacity: 0.85;
+  }
+
+  .slide-1 .meta {
+    margin-top: 2.5rem;
+    font-size: 0.95rem;
+    color: rgba(240,230,211,0.5);
+    letter-spacing: 1px;
+  }
+
+  .slide-1 .presenter {
+    margin-top: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(240,230,211,0.7);
+  }
+
+  .slide-1 .decorline {
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+    margin: 1.5rem auto;
+  }
+
+  /* ===== DARK CONTENT SLIDES ===== */
+  .dark-slide {
+    background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text-light);
+    padding: 2rem 3.5rem;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  .dark-slide::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 40%; height: 40%;
+    background: radial-gradient(ellipse, rgba(233,69,96,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .dark-slide .slide-number {
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .dark-slide h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .dark-slide h2 span { color: var(--accent); }
+
+  /* ===== CONTENT LAYOUTS ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .card h3 .icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: -2px;
+    margin-right: 5px;
+  }
+
+  .dark-slide .card h3 { color: var(--gold); }
+
+  .card p, .card li {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  .card ul { list-style: none; padding: 0; }
+
+  .card ul li {
+    padding: 0.15rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .ref {
+    font-size: 0.6em;
+    vertical-align: super;
+    color: var(--accent);
+    font-weight: 700;
+    margin-left: 2px;
+  }
+
+  .ref-slide .ref-num {
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 3px;
+  }
+
+  .takeaway-box {
+    background: linear-gradient(135deg, rgba(233,69,96,0.15), rgba(233,69,96,0.05));
+    border: 1px solid rgba(233,69,96,0.3);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-top: 0.6rem;
+  }
+
+  .takeaway-box p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 2rem;
+    right: 2.5rem;
+    display: flex;
+    gap: 0.8rem;
+    z-index: 100;
+  }
+
+  .nav button {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  .slide-counter {
+    position: fixed;
+    bottom: 2.2rem;
+    left: 2.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    z-index: 100;
+  }
+
+  .fs-tip {
+    position: fixed;
+    bottom: 2.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    z-index: 100;
+  }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    /* Title slide */
+    .slide-1 h1 {
+      font-size: 2.2rem;
+    }
+    .slide-1 .label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .slide-1 .subtitle {
+      font-size: 0.9rem;
+      margin-top: 0.6rem;
+    }
+    .slide-1 .presenter {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      margin-top: 0.8rem;
+    }
+    .slide-1 .meta {
+      font-size: 0.7rem;
+      margin-top: 1.2rem;
+    }
+    .slide-1 .decorline {
+      margin: 1rem auto;
+    }
+
+    /* Content slides */
+    .dark-slide {
+      padding: 1.2rem 1rem;
+      justify-content: flex-start;
+      padding-top: 2rem;
+    }
+    .dark-slide .slide-number {
+      font-size: 0.55rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.3rem;
+    }
+    .dark-slide h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Grid layouts — stack to single column */
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+    .mini-grid {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    /* Cards */
+    .card {
+      padding: 0.7rem 0.8rem;
+      border-radius: 8px;
+    }
+    .card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    .card h3 .icon {
+      width: 14px;
+      height: 14px;
+    }
+    .card p, .card li {
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    .card ul li {
+      padding: 0.1rem 0;
+      padding-left: 0.8rem;
+    }
+
+    /* Takeaway box */
+    .takeaway-box {
+      padding: 0.6rem 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .takeaway-box p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    /* References slide */
+    .ref-slide .ref-num {
+      margin-right: 2px;
+    }
+
+    /* Navigation */
+    .nav {
+      bottom: 1rem;
+      right: 50%;
+      transform: translateX(50%);
+      gap: 0.6rem;
+    }
+    .nav button {
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
+    }
+
+    /* Counter & tip */
+    .slide-counter {
+      bottom: 1rem;
+      left: 1rem;
+      font-size: 0.65rem;
+    }
+    .fs-tip {
+      display: none;
+    }
+  }
+</style>
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="slide-counter" id="counter"></div>
+<div class="fs-tip">Press F for fullscreen &middot; Arrow keys to navigate</div>
+
+<div class="slide-container" id="slides">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide slide-1 active">
+    <div class="content">
+      <div class="label">Science, Technology &amp; Society</div>
+      <h1>The <span>Freudian</span><br>Revolution</h1>
+      <div class="decorline"></div>
+      <div class="subtitle">Psychology, Controversy, and Its Impact on Society</div>
+      <div class="presenter">Austria, Francis Gabriel &middot; BSCS 1B</div>
+      <div class="meta">Intellectual Revolutions That Defined Society &middot; Module 3</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: C.1 — THE RISE OF FREUDIAN PSYCHOLOGY -->
+  <div class="slide dark-slide">
+    <div class="slide-number">C.1 &mdash; The Rise of Freudian Psychology &amp; Other Psychological Theories</div>
+    <h2>Freud &amp; the Rise of <span>Psychology</span></h2>
+    <div class="two-col">
+      <div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="user" class="icon"></i> Who Was Freud?</h3>
+          <p><strong>Sigmund Freud (1856&ndash;1939)</strong> was an Austrian neurologist and the father of psychoanalysis. He developed a <strong>scientific observational method</strong> to understand and treat the human mind, effective for neurological conditions not understood by medicine at the time.<span class="ref">[1,2]</span></p>
+        </div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="layers" class="icon"></i> Id, Ego &amp; Superego</h3>
+          <p>The mind has three forces: the <strong>Id</strong> (instincts &amp; pleasure principle), the <strong>Ego</strong> (rational mediator &amp; reality principle), and the <strong>Superego</strong> (moral conscience &amp; internalized standards). Mental health depends on their balance.<span class="ref">[3,4]</span></p>
+        </div>
+        <div class="card">
+          <h3><i data-lucide="brain" class="icon"></i> Key Freudian Theories</h3>
+          <ul>
+            <li>The <strong>unconscious mind</strong> drives behavior below awareness</li>
+            <li><strong>Dream analysis</strong> &mdash; the "royal road to the unconscious"<span class="ref">[5]</span></li>
+            <li><strong>Psychosexual development</strong> through five childhood stages</li>
+            <li><strong>Defense mechanisms</strong> &mdash; repression, denial, projection</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="users" class="icon"></i> Other Psychological Theories</h3>
+          <ul>
+            <li><strong>Carl Jung</strong> &mdash; Collective unconscious &amp; archetypes<span class="ref">[6]</span></li>
+            <li><strong>Alfred Adler</strong> &mdash; Inferiority complex &amp; social factors<span class="ref">[7]</span></li>
+            <li><strong>B.F. Skinner</strong> &mdash; Behaviorism; environment shapes behavior<span class="ref">[8]</span></li>
+            <li><strong>Abraham Maslow</strong> &mdash; Hierarchy of Needs &amp; self-actualization<span class="ref">[9]</span></li>
+          </ul>
+        </div>
+        <div class="takeaway-box">
+          <p><strong>Key Point:</strong> Freud's psychoanalysis was a <strong>paradigm shift</strong> &mdash; he moved the study of human behavior from philosophy and religion into science. The other theorists built on, challenged, or replaced parts of his framework.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: C.2 — CONTROVERSIES & ALTERNATIVE BELIEFS -->
+  <div class="slide dark-slide">
+    <div class="slide-number">C.2 &mdash; Controversies of Psychological Theories &amp; Alternative Beliefs About Human Behavior</div>
+    <h2><span>Controversies</span> &amp; Alternative Beliefs</h2>
+    <div class="two-col">
+      <div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="flame" class="icon"></i> Overemphasis on Sexuality</h3>
+          <p>Freud argued sexual desire drives all human behavior &mdash; even in children. His psychosexual stages shocked the public and religious communities deeply.</p>
+        </div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="flask-conical" class="icon"></i> Lack of Scientific Rigor</h3>
+          <p>Karl Popper argued psychoanalysis is <strong>unfalsifiable</strong> &mdash; it can explain anything after the fact but predict nothing. Methods relied on case studies, not experiments.<span class="ref">[10,11]</span></p>
+        </div>
+        <div class="card">
+          <h3><i data-lucide="alert-triangle" class="icon"></i> Gender &amp; Cultural Bias</h3>
+          <p>Most patients were upper-class European women. Theories like "penis envy" are considered sexist. Did not account for cultural diversity.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="heart-handshake" class="icon"></i> Religious / Spiritual Views</h3>
+          <ul>
+            <li>Behavior seen as a <strong>moral or spiritual</strong> matter</li>
+            <li>Prayer, confession, faith as forms of "treatment"</li>
+            <li>The <strong>soul</strong>, not the unconscious, as core identity</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-bottom:0.8rem;">
+          <h3><i data-lucide="leaf" class="icon"></i> Indigenous Healing (PH)</h3>
+          <ul>
+            <li>Filipino <strong>"hilot"</strong> and <strong>"albularyo"</strong> traditions</li>
+            <li>Healing through rituals, herbs, community</li>
+            <li><strong>Holistic</strong>: body, mind, and spirit together</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><i data-lucide="globe" class="icon"></i> Cultural / Community Views</h3>
+          <ul>
+            <li><strong>"Hiya"</strong> and <strong>"utang na loob"</strong> in PH culture</li>
+            <li>Collectivist vs. Freud's individualist focus</li>
+            <li>Eastern philosophy: harmony &amp; balance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: C.3 — EFFECTS ON SOCIETY TODAY -->
+  <div class="slide dark-slide">
+    <div class="slide-number">C.3 &mdash; Effects of Human Behavior Theories &amp; Beliefs in Society Today</div>
+    <h2>Freud's <span>Lasting Impact</span> on Society</h2>
+    <div class="two-col">
+      <div>
+        <div class="mini-grid">
+          <div class="card">
+            <h3><i data-lucide="brain" class="icon"></i> Mental Health Awareness</h3>
+            <p>Freud normalized the idea that psychological struggles are <strong>treatable conditions</strong> &mdash; not moral failures or signs of weakness.</p>
+          </div>
+          <div class="card">
+            <h3><i data-lucide="message-circle" class="icon"></i> Talk Therapy</h3>
+            <p>The idea that <strong>talking about problems can heal</strong> comes from Freud. Today's counseling and psychotherapy owe a debt to psychoanalysis.</p>
+          </div>
+          <div class="card">
+            <h3><i data-lucide="palette" class="icon"></i> Art &amp; Film</h3>
+            <p>Freudian concepts influenced <strong>surrealist art, novels, and movies</strong> &mdash; dream sequences and deep character psychology.</p>
+          </div>
+          <div class="card">
+            <h3><i data-lucide="megaphone" class="icon"></i> Advertising</h3>
+            <p><strong>Edward Bernays</strong> (Freud's nephew) created modern advertising by appealing to <strong>unconscious desires</strong>.<span class="ref">[12]</span></p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:0.8rem; border-color: rgba(233,69,96,0.3);">
+          <h3><i data-lucide="landmark" class="icon"></i> Philippine Context: RA 11036</h3>
+          <p>The <strong>Philippine Mental Health Act (2018)</strong> guarantees access to mental health services and integrates them into public health.<span class="ref">[13,14]</span></p>
+          <ul>
+            <li>Mental health long stigmatized &mdash; associated with being <strong>"baliw"</strong></li>
+            <li>Only ~500 psychiatrists for <strong>110M+ Filipinos</strong><span class="ref">[15]</span></li>
+            <li>Growing awareness through social media &amp; more psych programs</li>
+            <li>Schools now integrating <strong>counseling services</strong></li>
+          </ul>
+        </div>
+        <div class="takeaway-box">
+          <p><strong>Critical Analysis:</strong> While Freud's methods lacked scientific rigor and carried cultural bias, his core insight &mdash; that <strong>the mind deserves study and treatment</strong> &mdash; remains the foundation of modern psychology. Without Freud's paradigm shift, laws like RA 11036 may never have existed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: KEY TAKEAWAYS + REFERENCES -->
+  <div class="slide dark-slide ref-slide">
+    <div class="slide-number">Summary &amp; References</div>
+    <h2>Key Takeaways &amp; <span>References</span></h2>
+    <div class="two-col" style="margin-bottom: 0.6rem;">
+      <div>
+        <div class="card" style="margin-bottom:0.6rem;">
+          <h3>C.1 &mdash; The Rise</h3>
+          <p>Freud pioneered psychoanalysis (id, ego, superego; unconscious mind; dream analysis). Jung, Adler, Skinner, and Maslow expanded or challenged his work.</p>
+        </div>
+        <div class="card" style="margin-bottom:0.6rem;">
+          <h3>C.2 &mdash; Controversies</h3>
+          <p>Criticized for overemphasis on sexuality, unfalsifiability, and cultural bias. Alternative beliefs include religious, indigenous (hilot, albularyo), and collectivist cultural views.</p>
+        </div>
+        <div class="card">
+          <h3>C.3 &mdash; Effects</h3>
+          <p>Freud's legacy lives in mental health awareness, talk therapy, art, advertising, and Philippine law (RA 11036).</p>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.65rem; line-height:1.35; opacity:0.8;">
+          <p style="color:var(--gold); font-weight:700; margin-bottom:0.3rem; font-size:0.75rem;">REFERENCES &amp; SOURCES</p>
+          <p><span class="ref-num">[1]</span> Rosenfels, P. (1980). <em>Freud and the scientific method</em>. Ninth Street Center.</p>
+          <p><span class="ref-num">[2]</span> Weine, S. (2016). Developing preventive mental health interventions. <em>Clinical Social Work Journal</em>.</p>
+          <p><span class="ref-num">[3]</span> Freud, S. (1923). <em>The ego and the id</em>. Hogarth Press.</p>
+          <p><span class="ref-num">[4]</span> McLeod, S. (2025). Id, ego, and superego. Simply Psychology. https://www.simplypsychology.org/psyche.html</p>
+          <p><span class="ref-num">[5]</span> Freud, S. (1900). <em>The interpretation of dreams</em>.</p>
+          <p><span class="ref-num">[6]</span> Jung, C. G. (1968). <em>The archetypes and the collective unconscious</em>. Princeton University Press.</p>
+          <p><span class="ref-num">[7]</span> Adler, A. (1927). <em>Understanding human nature</em>. Greenberg.</p>
+          <p><span class="ref-num">[8]</span> Skinner, B. F. (1953). <em>Science and human behavior</em>. Macmillan.</p>
+          <p><span class="ref-num">[9]</span> Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review, 50</em>(4), 370&ndash;396.</p>
+          <p><span class="ref-num">[10]</span> Popper, K. R. (1963). <em>Conjectures and refutations</em>. Routledge.</p>
+          <p><span class="ref-num">[11]</span> Grant, D. C. &amp; Harari, E. (2005). Psychoanalysis, science and the seductive theory of Karl Popper. <em>ANZJP, 39</em>(6), 446&ndash;452.</p>
+          <p><span class="ref-num">[12]</span> Bernays, E. L. (1928). <em>Propaganda</em>. Horace Liveright.</p>
+          <p><span class="ref-num">[13]</span> Republic Act No. 11036 (2018). https://lawphil.net/statutes/repacts/ra2018/ra_11036_2018.html</p>
+          <p><span class="ref-num">[14]</span> Lally, J. et al. (2019). Mental health legislation in the Philippines. <em>BJPsych International, 16</em>(3), 65&ndash;67.</p>
+          <p><span class="ref-num">[15]</span> PCHRD-DOST. (2018). Mental Health Law encourages R&amp;D. https://www.pchrd.dost.gov.ph</p>
+          <p><span class="ref-num">[16]</span> Freud Museum London. <em>What is psychoanalysis?</em> https://www.freud.org.uk</p>
+          <p><span class="ref-num">[17]</span> Cabaddu, M.A. (2019). <em>STS Module</em>.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; color:var(--gold); margin-top:0.4rem;">Thank you.</div>
+  </div>
+
+</div>
+
+<div class="nav">
+  <button onclick="prevSlide()" title="Previous (&larr)">&#8249;</button>
+  <button onclick="nextSlide()" title="Next (&rarr)">&#8250;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  let current = 0;
+
+  function updateSlide() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'exit');
+      if (i === current) s.classList.add('active');
+      if (i < current) s.classList.add('exit');
+    });
+    progress.style.width = ((current + 1) / slides.length * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function nextSlide() {
+    if (current < slides.length - 1) { current++; updateSlide(); }
+  }
+
+  function prevSlide() {
+    if (current > 0) { current--; updateSlide(); }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  var touchStartX = 0;
+  document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].screenX;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+  });
+
+  updateSlide();
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
